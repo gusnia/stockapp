@@ -15,28 +15,21 @@ REST API berbasis Laravel untuk melakukan screening saham syariah berdasarkan ra
 
 ## Instalasi
 
-### 1. Clone repository
-
-```bash
-git clone https://github.com/username/nama-repo.git
-cd nama-repo
-```
-
-### 2. Install dependency
+### 1. Install dependency
 
 ```bash
 composer install
 ```
 
-### 3. create new project in laragon folder
+### 2. create new project in laragon folder
 
 ```bash
 cd C:\laragon\www\stock-app
 ```
 
-### 4. Konfigurasi database
+### 3. Konfigurasi database
 
-Buka file `.env` dan sesuaikan dengan konfigurasi database lokal kamu:
+konfigurasi database lokal:
 
 ```env
 DB_CONNECTION=mysql
@@ -47,22 +40,21 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-> Pastikan database sudah dibuat terlebih dahulu di MySQL sebelum menjalankan migrasi.
 
-### 5. Aktifkan API routing (Laravel 11)
+### 4. Aktifkan API routing (Laravel 13)
 
 ```bash
 php artisan install:api
 ```
 
-### 6. Jalankan migrasi dan seeder
+### 5. Jalankan migrasi dan seeder
 
 ```bash
 php artisan migrate
 php artisan db:seed
 ```
 
-### 7. Jalankan server
+### 6. Jalankan server
 
 ```bash
 php artisan serve
