@@ -114,7 +114,9 @@ let currentSearch = '';
 async function fetchStocks() {
     // const res = await fetch('/data/stocks.json');
     const res = await fetch('/sharia-stocks');
-    allStocks = await res.json();
+    // allStocks = await res.json();
+    const json = await res.json();
+    allStocks = json.data;
     renderAll();
 }
 
@@ -342,14 +344,12 @@ function initChart(stocks) {
     });
 }
 
-// Override fetchStocks agar juga render chart
-const _originalFetch = fetchStocks;
 async function fetchStocks() {
-    // const res = await fetch('/data/stocks.json');
     const res = await fetch('/sharia-stocks');
-    allStocks = await res.json();
+    const json = await res.json();
+    allStocks = json.data; 
     renderAll();
-    initChart(allStocks); // chart selalu pakai semua 10 data, tidak ikut filter
+    initChart(allStocks);
 }
 
 fetchStocks();
