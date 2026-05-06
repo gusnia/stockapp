@@ -32,3 +32,9 @@ Route::get('/debug-db', function () {
         ];
     }
 });
+
+
+Route::get('/sharia-stocks', function () {
+    $companies = \App\Models\Company::passesShariaScreening()->get();
+    return response()->json(['data' => $companies]);
+});

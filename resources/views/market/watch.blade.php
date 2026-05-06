@@ -112,7 +112,8 @@ let currentFilter = 'all';
 let currentSearch = '';
 
 async function fetchStocks() {
-    const res = await fetch('/data/stocks.json');
+    // const res = await fetch('/data/stocks.json');
+    const res = await fetch('/sharia-stocks');
     allStocks = await res.json();
     renderAll();
 }
@@ -344,7 +345,8 @@ function initChart(stocks) {
 // Override fetchStocks agar juga render chart
 const _originalFetch = fetchStocks;
 async function fetchStocks() {
-    const res = await fetch('/data/stocks.json');
+    // const res = await fetch('/data/stocks.json');
+    const res = await fetch('/sharia-stocks');
     allStocks = await res.json();
     renderAll();
     initChart(allStocks); // chart selalu pakai semua 10 data, tidak ikut filter
