@@ -45,7 +45,6 @@
             <span class="text-cyan-400 text-xs font-mono font-bold">MOCK DATA</span>
         </div>
     </div>
-    {{-- Tinggi chart lebih kecil di mobile --}}
     <div class="relative h-48 sm:h-64">
         <canvas id="priceChart"></canvas>
     </div>
@@ -76,13 +75,13 @@
     .filter-btn.active { background: rgba(34,211,238,0.12); border-color: rgba(34,211,238,0.35); color: #22d3ee; }
 </style>
 
-{{-- MOBILE: Grid Card (< lg) --}}
+{{-- MOBILE: Grid Card --}}
 <div class="lg:hidden">
     <div id="cardGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
     <p id="emptyCard" class="hidden text-center text-slate-600 py-16 text-sm">Tidak ada emiten yang cocok.</p>
 </div>
 
-{{-- DESKTOP: Data Table (>= lg) --}}
+{{-- DESKTOP: Data Table --}}
 <div class="hidden lg:block card-glow bg-navy-800 rounded-2xl overflow-hidden">
     <div class="overflow-x-auto">
         <table class="w-full">
@@ -106,18 +105,21 @@
 @endsection
 
 @push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 let allStocks = [];
 let currentFilter = 'all';
 let currentSearch = '';
+let priceChart = null;
 
 async function fetchStocks() {
-    // const res = await fetch('/data/stocks.json');
-    const res = await fetch('/sharia-stocks');
-    // allStocks = await res.json();
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    const url = isLocal ? '/data/stocks.json' : '/sharia-stocks';
+    const res = await fetch(url);
     const json = await res.json();
-    allStocks = json.data;
+    allStocks = isLocal ? json : json.data;
     renderAll();
+    initChart(allStocks);
 }
 
 function renderAll() {
@@ -130,7 +132,6 @@ function renderAll() {
                                        s.change < 0;
         return matchSearch && matchFilter;
     });
-
     renderCards(data);
     renderTable(data);
 }
@@ -233,35 +234,13 @@ function renderTable(data) {
     });
 }
 
-document.getElementById('searchInput').addEventListener('input', function () {
-    currentSearch = this.value;
-    renderAll();
-});
-
-function filterChange(type) {
-    currentFilter = type;
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('btn-' + type).classList.add('active');
-    renderAll();
-}
-
-fetchStocks();
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-let priceChart = null;
-
 function initChart(stocks) {
     const ctx = document.getElementById('priceChart').getContext('2d');
-
     const labels = stocks.map(s => s.ticker);
     const prices = stocks.map(s => s.price);
     const changes = stocks.map(s => s.change);
-
     const pointColors = changes.map(c => c >= 0 ? '#34d399' : '#f87171');
     const pointBorder = changes.map(c => c >= 0 ? '#10b981' : '#ef4444');
-
     const isMobile = window.innerWidth < 640;
 
     if (priceChart) priceChart.destroy();
@@ -344,19 +323,22 @@ function initChart(stocks) {
     });
 }
 
-async function fetchStocks() {
-    const res = await fetch('/sharia-stocks');
-    const json = await res.json();
-    allStocks = json.data; 
+document.getElementById('searchInput').addEventListener('input', function () {
+    currentSearch = this.value;
     renderAll();
-    initChart(allStocks);
+});
+
+function filterChange(type) {
+    currentFilter = type;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('btn-' + type).classList.add('active');
+    renderAll();
 }
 
-fetchStocks();
-
-// Re-init chart saat resize (orientasi HP berubah)
 window.addEventListener('resize', () => {
     if (allStocks.length) initChart(allStocks);
 });
+
+fetchStocks();
 </script>
 @endpush
