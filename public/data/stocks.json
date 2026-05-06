@@ -1,0 +1,92 @@
+[
+    {
+        "ticker": "BBCA",
+        "company_name": "Bank Central Asia Tbk",
+        "price": 9450,
+        "change": 2.34,
+        "volume": "128.4M",
+        "market_cap": "1.17T",
+        "sector": "Keuangan"
+    },
+    {
+        "ticker": "TLKM",
+        "company_name": "Telkom Indonesia Tbk",
+        "price": 3820,
+        "change": -1.03,
+        "volume": "89.2M",
+        "market_cap": "376.8B",
+        "sector": "Teknologi"
+    },
+    {
+        "ticker": "ASII",
+        "company_name": "Astra International Tbk",
+        "price": 5275,
+        "change": 0.85,
+        "volume": "62.7M",
+        "market_cap": "213.5B",
+        "sector": "Otomotif"
+    },
+    {
+        "ticker": "ICBP",
+        "company_name": "Indofood CBP Sukses Makmur Tbk",
+        "price": 10450,
+        "change": 1.46,
+        "volume": "45.1M",
+        "market_cap": "121.3B",
+        "sector": "Konsumer"
+    },
+    {
+        "ticker": "UNTR",
+        "company_name": "United Tractors Tbk",
+        "price": 26300,
+        "change": -2.18,
+        "volume": "31.6M",
+        "market_cap": "98.7B",
+        "sector": "Pertambangan"
+    },
+    {
+        "ticker": "KLBF",
+        "company_name": "Kalbe Farma Tbk",
+        "price": 1685,
+        "change": 3.05,
+        "volume": "210.3M",
+        "market_cap": "79.2B",
+        "sector": "Kesehatan"
+    },
+    {
+        "ticker": "CPIN",
+        "company_name": "Charoen Pokphand Indonesia Tbk",
+        "price": 4890,
+        "change": -0.61,
+        "volume": "55.8M",
+        "market_cap": "80.4B",
+        "sector": "Agrikultur"
+    },
+    {
+        "ticker": "INDF",
+        "company_name": "Indofood Sukses Makmur Tbk",
+        "price": 7125,
+        "change": 1.21,
+        "volume": "38.4M",
+        "market_cap": "61.5B",
+        "sector": "Konsumer"
+    },
+    {
+        "ticker": "SIDO",
+        "company_name": "Industri Jamu dan Farmasi Sido Muncul Tbk",
+        "price": 745,
+        "change": -0.27,
+        "volume": "175.6M",
+        "market_cap": "22.3B",
+        "sector": "Kesehatan"
+    },
+    {
+        "ticker": "MYOR",
+        "company_name": "Mayora Indah Tbk",
+        "price": 2640,
+        "change": 4.13,
+        "volume": "93.7M",
+        "market_cap": "59.1B",
+        "sector": "Konsumer"
+    }
+]
