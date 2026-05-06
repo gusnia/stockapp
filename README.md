@@ -1,58 +1,181 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sharia Stock Screener API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+REST API berbasis Laravel untuk melakukan screening saham syariah berdasarkan rasio utang perusahaan.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Requirement
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- PHP >= 8.2
+- Composer
+- MySQL
+- Laravel 11
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Instalasi
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+### 1. Clone repository
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone https://github.com/username/nama-repo.git
+cd nama-repo
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### 2. Install dependency
 
-## Contributing
+```bash
+composer install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 3. create new project in laragon folder
 
-## Code of Conduct
+```bash
+cd C:\laragon\www\stock-app
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 4. Konfigurasi database
 
-## Security Vulnerabilities
+Buka file `.env` dan sesuaikan dengan konfigurasi database lokal kamu:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=dbstockmarket
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-## License
+> Pastikan database sudah dibuat terlebih dahulu di MySQL sebelum menjalankan migrasi.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 5. Aktifkan API routing (Laravel 11)
+
+```bash
+php artisan install:api
+```
+
+### 6. Jalankan migrasi dan seeder
+
+```bash
+php artisan migrate
+php artisan db:seed
+```
+
+### 7. Jalankan server
+
+```bash
+php artisan serve
+```
+
+---
+
+## Penggunaan API
+
+### GET /api/sharia-stocks
+
+Mengembalikan daftar perusahaan yang lolos screening syariah, yaitu perusahaan dengan rasio utang **(total_debt / total_assets) di bawah 45%**.
+
+**Request:**
+
+```
+GET http://127.0.0.1:8000/api/sharia-stocks
+```
+
+**Response:**
+
+```json
+{
+  "data": [
+    {
+      "ticker": "BBCA",
+      "company_name": "Bank Central Asia Tbk",
+      "total_assets": 1408000000000,
+      "total_debt": 450000000000,
+      "debt_ratio": 31.96,
+      "is_sharia": true
+    },
+    {
+      "ticker": "TLKM",
+      "company_name": "Telkom Indonesia Tbk",
+      "total_assets": 275000000000,
+      "total_debt": 95000000000,
+      "debt_ratio": 34.55,
+      "is_sharia": true
+    },
+    {
+      "ticker": "UNVR",
+      "company_name": "Unilever Indonesia Tbk",
+      "total_assets": 20000000000,
+      "total_debt": 7500000000,
+      "debt_ratio": 37.5,
+      "is_sharia": false
+    },
+    {
+      "ticker": "ASII",
+      "company_name": "Astra International Tbk",
+      "total_assets": 320000000000,
+      "total_debt": 130000000000,
+      "debt_ratio": 40.63,
+      "is_sharia": true
+    },
+    {
+      "ticker": "ICBP",
+      "company_name": "Indofood CBP Sukses Makmur Tbk",
+      "total_assets": 55000000000,
+      "total_debt": 20000000000,
+      "debt_ratio": 36.36,
+      "is_sharia": true
+    }
+  ]
+}
+```
+
+---
+
+## Struktur Project
+
+```
+app/
+├── Http/
+│   ├── Controllers/Api/
+│   │   └── StockController.php
+│   └── Resources/
+│       └── CompanyResource.php
+└── Models/
+    └── Company.php
+    └── User.php
+
+database/
+├── migrations/
+│   └── 0001_01_01_000000_create_users_table.php
+    └──0001_01_01_000001_create_cache_table.php
+    └──0001_01_01_000002_create_jobs_table.php
+    └──2026_05_05_234258_create_companies_table.php
+    └──2026_05_06_002652_create_personal_access_tokens_table.php
+└── seeders/
+    ├── CompanySeeder.php
+    └── DatabaseSeeder.php
+
+routes/
+└── api.php
+```
+
+---
+
+## Logika Screening
+
+Filtering dilakukan di level database menggunakan query:
+
+```sql
+WHERE (total_debt / total_assets) < 0.45
+```
+
+Implementasi di Model menggunakan Laravel Query Scope:
+
+```php
+public function scopePassesShariaScreening($query)
+{
+    return $query->whereRaw('total_assets != 0 AND (total_debt / total_assets) < 0.45');
+}
+```
